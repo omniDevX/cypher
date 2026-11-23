@@ -1,0 +1,6 @@
+fundId,name,fundType,domicile,baseCurrency,totalNetAssets,reportingDate,managerEntityId
+FND-001,Aldermoor Japan Equity ETF,exchange-traded fund,IE,USD,1850000000,2026-10-30T00:00:00Z,LE-0027
+FND-002,Aldermoor Global Allocation Fund of Funds,fund of funds,IE,USD,2400000000,2026-10-30T00:00:00Z,LE-0027
+FND-003,Aldermoor European Equity Fund,mutual fund,IE,EUR,950000000,2026-10-30T00:00:00Z,LE-0027
+FND-004,Aldermoor Global Corporate Bond Fund,mutual fund,IE,USD,1300000000,2026-10-30T00:00:00Z,LE-0027
+FND-005,Northgate Asia Income Fund,mutual fund,US,USD,780000000,2026-10-30T00:00:00Z,LE-0028

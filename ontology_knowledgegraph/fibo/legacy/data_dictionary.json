@@ -1,0 +1,75 @@
+{
+  "purpose": "Synthetic legacy commercial-loan source schema for demonstrating source-to-FIBO/enterprise-ontology mapping.",
+  "synthetic_only": true,
+  "tables": {
+    "CUST_MST": "Customer / borrower legal-entity master",
+    "CUST_GRP_XREF": "Corporate group membership and parent/subsidiary relation",
+    "LN_FAC": "Credit facility / lending commitment",
+    "LN_ACCT": "Individual loan account or drawdown",
+    "LN_AGR": "Facility loan agreement",
+    "GUAR_XREF": "Loan-to-guarantor association",
+    "COLL_MST": "Collateral asset master",
+    "COLL_LINK": "Loan-to-collateral association and lien details",
+    "COV_MST": "Covenant definition",
+    "LN_COV_XREF": "Loan-to-covenant association and threshold",
+    "LN_RATING_HIST": "Borrower/loan credit risk rating history",
+    "LN_PAY_TXN": "Loan payment transactions"
+  },
+  "mapping_examples": [
+    [
+      "CUST_MST",
+      "CUST_NO",
+      "Borrower identifier / legal entity identifier"
+    ],
+    [
+      "LN_FAC",
+      "FAC_NO",
+      "Credit facility identifier"
+    ],
+    [
+      "LN_FAC",
+      "LIM_AMT",
+      "Facility commitment amount"
+    ],
+    [
+      "LN_ACCT",
+      "LN_NO",
+      "Loan identifier"
+    ],
+    [
+      "LN_ACCT",
+      "OUT_BAL",
+      "Outstanding loan balance"
+    ],
+    [
+      "LN_AGR",
+      "AGR_NO",
+      "Loan agreement identifier"
+    ],
+    [
+      "GUAR_XREF",
+      "GUAR_CUST_NO",
+      "Guarantor legal entity"
+    ],
+    [
+      "COLL_MST",
+      "COLL_NO",
+      "Collateral identifier"
+    ],
+    [
+      "COV_MST",
+      "COV_CD",
+      "Covenant type"
+    ],
+    [
+      "LN_RATING_HIST",
+      "RATING_CD",
+      "Credit risk rating"
+    ]
+  ],
+  "notes": [
+    "Legacy names are intentionally abbreviated and require semantic interpretation.",
+    "This is a compact demo schema, not a production banking data model.",
+    "FIBO class/property targets should be selected and validated against the exact FIBO release used by the project."
+  ]
+}

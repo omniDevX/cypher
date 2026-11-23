@@ -1,0 +1,2437 @@
+{
+  "version": "3.0.0",
+  "visualisation": {
+    "nodes": [
+      {
+        "id": "n:0",
+        "position": {
+          "x": -90,
+          "y": 30
+        }
+      },
+      {
+        "id": "n:1",
+        "position": {
+          "x": -90,
+          "y": -75
+        }
+      },
+      {
+        "id": "n:2",
+        "position": {
+          "x": -210,
+          "y": -75
+        }
+      },
+      {
+        "id": "n:3",
+        "position": {
+          "x": 45,
+          "y": -30
+        }
+      },
+      {
+        "id": "n:4",
+        "position": {
+          "x": 45,
+          "y": 90
+        }
+      },
+      {
+        "id": "n:5",
+        "position": {
+          "x": 180,
+          "y": 90
+        }
+      },
+      {
+        "id": "n:6",
+        "position": {
+          "x": 180,
+          "y": -30
+        }
+      },
+      {
+        "id": "n:7",
+        "position": {
+          "x": 105,
+          "y": -150
+        }
+      },
+      {
+        "id": "n:8",
+        "position": {
+          "x": -90,
+          "y": -150
+        }
+      }
+    ]
+  },
+  "dataModel": {
+    "version": "3.0.0",
+    "graphSchemaRepresentation": {
+      "version": "1.0.0",
+      "graphSchema": {
+        "nodeLabels": [
+          {
+            "$id": "nl:0",
+            "token": "Person",
+            "properties": [
+              {
+                "$id": "p:0",
+                "token": "personId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the person across the portfolio. Identity is expected to be resolved before import, so one real person is one node. e.g. `P-0002`."
+              },
+              {
+                "$id": "p:1",
+                "token": "name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "The person's full name as recorded on their applications. e.g. `Patricia Hughes`."
+              }
+            ]
+          },
+          {
+            "$id": "nl:1",
+            "token": "LoanApplication",
+            "properties": [
+              {
+                "$id": "p:2",
+                "token": "applicationId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the application. e.g. `A-00002`."
+              },
+              {
+                "$id": "p:3",
+                "token": "applicationDate",
+                "type": {
+                  "type": "datetime"
+                },
+                "nullable": false,
+                "description": "Calendar date the application was signed and submitted, as an ISO 8601 zoned datetime at midnight UTC; only the calendar date carries meaning. e.g. `2024-10-04T00:00:00Z`."
+              },
+              {
+                "$id": "p:4",
+                "token": "requestedAmount",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Amount the applicants asked to borrow, in US dollars. For an originated loan the principal may differ slightly from the request. e.g. `311800.00`."
+              },
+              {
+                "$id": "p:5",
+                "token": "loanPurpose",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "What the borrowed funds are for, using FIBO's mortgage loan purposes plus `personal expenditure` for consumer loans that are not secured on real property. e.g. `loan refinancing`."
+              },
+              {
+                "$id": "p:6",
+                "token": "occupancy",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "How the applicants intend to use the property securing the loan (FIBO property usage). Empty for applications with no property, such as unsecured personal loans. e.g. `primary residence`."
+              },
+              {
+                "$id": "p:7",
+                "token": "creditScore",
+                "type": {
+                  "type": "integer"
+                },
+                "nullable": false,
+                "description": "FICO-style credit score of the primary applicant at the time of application, on the 300-850 scale; higher is lower risk. A point-in-time value, not a current score. e.g. `742`."
+              },
+              {
+                "$id": "p:8",
+                "token": "monthlyIncome",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Gross monthly qualifying income of all applicants combined, in US dollars, as relied on for the credit decision (FIBO all borrowers' monthly income). e.g. `7910.00`."
+              },
+              {
+                "$id": "p:9",
+                "token": "dtiRatio",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Debt-to-income (DTI) ratio at application: all applicants' monthly debt payments, including the proposed loan, as a percentage of their gross monthly income. A percentage, so 36.5 means 36.5%. e.g. `36.50`."
+              },
+              {
+                "$id": "p:10",
+                "token": "disposition",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "The action taken on the application, using the HMDA disposition categories (also called action taken). Only `loan originated` leads to a loan. e.g. `loan originated`."
+              },
+              {
+                "$id": "p:11",
+                "token": "dispositionDate",
+                "type": {
+                  "type": "datetime"
+                },
+                "nullable": false,
+                "description": "Calendar date the disposition was made, as an ISO 8601 zoned datetime at midnight UTC; only the calendar date carries meaning. For an originated loan it is the origination (closing) date. e.g. `2024-12-05T00:00:00Z`."
+              },
+              {
+                "$id": "p:12",
+                "token": "denialReason",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Primary reason for a denial, using FIBO's denial reasons plus HMDA's `debt-to-income ratio` and `other`. One reason per application; empty unless the disposition is a denial. e.g. `debt-to-income ratio`."
+              }
+            ]
+          },
+          {
+            "$id": "nl:2",
+            "token": "LoanProduct",
+            "properties": [
+              {
+                "$id": "p:13",
+                "token": "productId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the product. e.g. `LP-02`."
+              },
+              {
+                "$id": "p:14",
+                "token": "name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "The product's name as marketed. e.g. `15-year fixed-rate mortgage`."
+              },
+              {
+                "$id": "p:15",
+                "token": "marketCategory",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Market in which the product is offered, using FIBO's loan market categories. Home equity products secured on a home are `mortgage loan`. e.g. `mortgage loan`."
+              },
+              {
+                "$id": "p:16",
+                "token": "creditType",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Whether the principal is fixed once the loan closes (`closed-end`) or can be drawn and repaid up to a credit limit (`open-end`, as in a home equity line of credit). e.g. `closed-end`."
+              },
+              {
+                "$id": "p:17",
+                "token": "amortizationType",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "How the interest rate and repayments behave over the term, using FIBO's amortization types. e.g. `fixed rate`."
+              },
+              {
+                "$id": "p:18",
+                "token": "termMonths",
+                "type": {
+                  "type": "integer"
+                },
+                "nullable": false,
+                "description": "Contractual term in months from the first scheduled payment to maturity. e.g. `180`."
+              },
+              {
+                "$id": "p:19",
+                "token": "isSecured",
+                "type": {
+                  "type": "boolean"
+                },
+                "nullable": false,
+                "description": "True when loans under the product are secured by collateral; here that collateral is always real property. e.g. `true`."
+              }
+            ]
+          },
+          {
+            "$id": "nl:3",
+            "token": "Loan",
+            "properties": [
+              {
+                "$id": "p:20",
+                "token": "loanId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the loan. e.g. `L-00002`."
+              },
+              {
+                "$id": "p:21",
+                "token": "principalAmount",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Original principal advanced at origination, in US dollars. For an open-end line, the amount drawn at origination. e.g. `311800.00`."
+              },
+              {
+                "$id": "p:22",
+                "token": "interestRate",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Annual note interest rate at origination, as a percentage, so 6.25 means 6.25% a year. For adjustable-rate products, the initial rate. e.g. `6.750`."
+              },
+              {
+                "$id": "p:23",
+                "token": "originationDate",
+                "type": {
+                  "type": "datetime"
+                },
+                "nullable": false,
+                "description": "Calendar date the loan closed and funds were advanced, as an ISO 8601 zoned datetime at midnight UTC; only the calendar date carries meaning. The first payment is due on the first day of the second month after it. e.g. `2024-12-05T00:00:00Z`."
+              },
+              {
+                "$id": "p:24",
+                "token": "maturityDate",
+                "type": {
+                  "type": "datetime"
+                },
+                "nullable": false,
+                "description": "Calendar date the final scheduled payment is due, as an ISO 8601 zoned datetime at midnight UTC; only the calendar date carries meaning. e.g. `2055-01-01T00:00:00Z`."
+              },
+              {
+                "$id": "p:25",
+                "token": "lienPosition",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "The lender's claim on the securing property relative to other liens, using FIBO's lender lien positions: first claim (`primary lien position`) or behind another lien (`subordinate lien position`). Empty for unsecured loans. e.g. `primary lien position`."
+              },
+              {
+                "$id": "p:26",
+                "token": "ltvAtOrigination",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Loan-to-value (LTV) ratio at origination: this loan's principal as a percentage of the appraised value relied on at origination, so 80 means 80%. This loan alone, not combined with other liens. Empty for unsecured loans. e.g. `64.02`."
+              },
+              {
+                "$id": "p:27",
+                "token": "currentBalance",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Outstanding principal in US dollars as of balanceAsOfDate; zero once paid in full. Unpaid interest and fees are not included. e.g. `306134.09`."
+              },
+              {
+                "$id": "p:28",
+                "token": "balanceAsOfDate",
+                "type": {
+                  "type": "datetime"
+                },
+                "nullable": false,
+                "description": "Calendar date the servicer snapshot (currentBalance and status) was taken, as an ISO 8601 zoned datetime at midnight UTC; only the calendar date carries meaning. e.g. `2026-09-30T00:00:00Z`."
+              },
+              {
+                "$id": "p:29",
+                "token": "status",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Servicer-reported status as of balanceAsOfDate, from the oldest unpaid scheduled payment: `current` (none, or under 30 days past due), `delinquent` (30-89 days past due), `in default` (90 days or more), or `paid in full`. e.g. `current`."
+              }
+            ]
+          },
+          {
+            "$id": "nl:4",
+            "token": "Property",
+            "properties": [
+              {
+                "$id": "p:30",
+                "token": "propertyId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the property. e.g. `PR-0002`."
+              },
+              {
+                "$id": "p:31",
+                "token": "address",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Street address of the property. e.g. `4533 Garfield Dr`."
+              },
+              {
+                "$id": "p:32",
+                "token": "city",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "City in which the property lies. e.g. `Madison`."
+              },
+              {
+                "$id": "p:33",
+                "token": "state",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "US state, as its two-letter USPS code. e.g. `WI`."
+              },
+              {
+                "$id": "p:34",
+                "token": "postalCode",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Five-digit US ZIP code, held as text to keep leading zeros. e.g. `53720`."
+              },
+              {
+                "$id": "p:35",
+                "token": "constructionType",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "How the dwelling was built, using FIBO's HMDA construction types. e.g. `site built`."
+              },
+              {
+                "$id": "p:36",
+                "token": "dwellingUnits",
+                "type": {
+                  "type": "integer"
+                },
+                "nullable": false,
+                "description": "Number of separate dwelling units in the property; 1 for a single-family home, 2-4 for small multi-family. e.g. `1`."
+              }
+            ]
+          },
+          {
+            "$id": "nl:5",
+            "token": "Appraisal",
+            "properties": [
+              {
+                "$id": "p:37",
+                "token": "appraisalId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the appraisal. e.g. `AP-00003`."
+              },
+              {
+                "$id": "p:38",
+                "token": "appraisalDate",
+                "type": {
+                  "type": "datetime"
+                },
+                "nullable": false,
+                "description": "Calendar date the value was established (the effective date of the appraisal), as an ISO 8601 zoned datetime at midnight UTC; only the calendar date carries meaning. e.g. `2017-09-14T00:00:00Z`."
+              },
+              {
+                "$id": "p:39",
+                "token": "appraisedValue",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Market value of the whole property on appraisalDate, in US dollars. e.g. `186500.00`."
+              }
+            ]
+          },
+          {
+            "$id": "nl:6",
+            "token": "Payment",
+            "properties": [
+              {
+                "$id": "p:40",
+                "token": "paymentId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the scheduled payment. e.g. `PM-000001`."
+              },
+              {
+                "$id": "p:41",
+                "token": "dueDate",
+                "type": {
+                  "type": "datetime"
+                },
+                "nullable": false,
+                "description": "Calendar date the installment was due, as an ISO 8601 zoned datetime at midnight UTC; only the calendar date carries meaning. e.g. `2025-10-01T00:00:00Z`."
+              },
+              {
+                "$id": "p:42",
+                "token": "amountDue",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Scheduled installment of principal and interest, in US dollars. e.g. `2022.33`."
+              },
+              {
+                "$id": "p:43",
+                "token": "amountPaid",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": false,
+                "description": "Amount actually paid against this installment, in US dollars. Zero for a missed installment; less than amountDue for a partial payment. e.g. `2022.33`."
+              },
+              {
+                "$id": "p:44",
+                "token": "paidDate",
+                "type": {
+                  "type": "datetime"
+                },
+                "nullable": false,
+                "description": "Calendar date the payment was received, as an ISO 8601 zoned datetime at midnight UTC; only the calendar date carries meaning. Empty when nothing has been paid. e.g. `2025-10-06T00:00:00Z`."
+              },
+              {
+                "$id": "p:45",
+                "token": "daysLate",
+                "type": {
+                  "type": "integer"
+                },
+                "nullable": false,
+                "description": "Days from dueDate to paidDate; 0 when paid on or before the due date, empty when nothing has been paid. e.g. `5`."
+              }
+            ]
+          },
+          {
+            "$id": "nl:7",
+            "token": "FinancialInstitution",
+            "properties": [
+              {
+                "$id": "p:46",
+                "token": "institutionId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the institution. e.g. `FI-02`."
+              },
+              {
+                "$id": "p:47",
+                "token": "name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "The institution's legal or trading name. e.g. `Prairie State Credit Union`."
+              },
+              {
+                "$id": "p:48",
+                "token": "lei",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "ISO 17442 Legal Entity Identifier: 18 alphanumeric characters and two check digits. e.g. `NDDV00FNCFM5D8WJJJ14`."
+              }
+            ]
+          },
+          {
+            "$id": "nl:8",
+            "token": "LoanOfficer",
+            "properties": [
+              {
+                "$id": "p:49",
+                "token": "officerId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Unique identifier for the loan officer within the portfolio. e.g. `LO-005`."
+              },
+              {
+                "$id": "p:50",
+                "token": "name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "The loan officer's full name. e.g. `Matthew Kim`."
+              },
+              {
+                "$id": "p:51",
+                "token": "nmlsId",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "Identifier permanently assigned to the individual by the Nationwide Mortgage Licensing System and Registry (NMLSR ID). Numeric, held as text. e.g. `1778379`."
+              }
+            ]
+          }
+        ],
+        "relationshipTypes": [
+          {
+            "$id": "rt:0",
+            "token": "APPLIED_FOR",
+            "properties": [
+              {
+                "$id": "p:52",
+                "token": "applicantRole",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "The person's role on the application, as in HMDA reporting: the main `applicant` or a `co-applicant`. Expected to be exactly one `applicant` per application. e.g. `applicant`."
+              }
+            ]
+          },
+          {
+            "$id": "rt:1",
+            "token": "FOR_PRODUCT",
+            "properties": []
+          },
+          {
+            "$id": "rt:2",
+            "token": "HANDLED_BY",
+            "properties": []
+          },
+          {
+            "$id": "rt:3",
+            "token": "RESULTED_IN",
+            "properties": []
+          },
+          {
+            "$id": "rt:4",
+            "token": "BORROWER_ON",
+            "properties": [
+              {
+                "$id": "p:53",
+                "token": "borrowerRole",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": false,
+                "description": "The person's role on the loan: the `primary borrower` or a `co-borrower`. Expected to be exactly one `primary borrower` per loan. e.g. `co-borrower`."
+              }
+            ]
+          },
+          {
+            "$id": "rt:5",
+            "token": "GUARANTEES",
+            "properties": []
+          },
+          {
+            "$id": "rt:6",
+            "token": "LENT_BY",
+            "properties": []
+          },
+          {
+            "$id": "rt:7",
+            "token": "SERVICED_BY",
+            "properties": []
+          },
+          {
+            "$id": "rt:8",
+            "token": "EMPLOYED_BY",
+            "properties": []
+          },
+          {
+            "$id": "rt:9",
+            "token": "SECURED_BY",
+            "properties": []
+          },
+          {
+            "$id": "rt:10",
+            "token": "VALUES",
+            "properties": []
+          },
+          {
+            "$id": "rt:11",
+            "token": "HAS_PAYMENT",
+            "properties": []
+          }
+        ],
+        "nodeObjectTypes": [
+          {
+            "$id": "n:0",
+            "labels": [
+              {
+                "$ref": "#nl:0"
+              }
+            ],
+            "description": "A natural person who applies for, borrows on, or guarantees loans. Borrower, co-borrower, applicant and guarantor are roles a person plays, carried by relationships rather than by separate labels, so one person's whole position across the portfolio is a single node."
+          },
+          {
+            "$id": "n:1",
+            "labels": [
+              {
+                "$ref": "#nl:1"
+              }
+            ],
+            "description": "A request by one or more applicants to a lender to borrow money, carrying the information used to decide it and the outcome. Every originated loan comes from exactly one application; applications that are denied, withdrawn or closed lead to no loan."
+          },
+          {
+            "$id": "n:2",
+            "labels": [
+              {
+                "$ref": "#nl:2"
+              }
+            ],
+            "description": "A loan product a lender offers, with fixed characteristics and terms that every loan written under it shares: market, open- or closed-end credit, amortization, term and whether it is secured."
+          },
+          {
+            "$id": "n:3",
+            "labels": [
+              {
+                "$ref": "#nl:3"
+              }
+            ],
+            "description": "A funded loan: the credit agreement and its servicing account folded into one node. It carries the contractual terms set at origination and a servicer snapshot of balance and status as of one date. A loan is a mortgage when it is secured by a property."
+          },
+          {
+            "$id": "n:4",
+            "labels": [
+              {
+                "$ref": "#nl:4"
+              }
+            ],
+            "description": "A parcel of residential real property pledged as collateral for one or more loans. Several loans, from different lenders and of different lien positions, can be secured on the same property."
+          },
+          {
+            "$id": "n:5",
+            "labels": [
+              {
+                "$ref": "#nl:5"
+              }
+            ],
+            "description": "A valuation of a property on one date, made when a loan or an application needed the property's value. A property gathers appraisals over time, and they need not agree; the most recent is the usual basis for combined loan-to-value."
+          },
+          {
+            "$id": "n:6",
+            "labels": [
+              {
+                "$ref": "#nl:6"
+              }
+            ],
+            "description": "One scheduled monthly installment on a loan and what was actually paid against it. Together a loan's payments form its payment history; a missed installment is still a payment record, with nothing paid."
+          },
+          {
+            "$id": "n:7",
+            "labels": [
+              {
+                "$ref": "#nl:7"
+              }
+            ],
+            "description": "A lending institution or loan servicer. Lender and servicer are roles carried by relationships: one institution can lend, service, or both, and a lender's loans may be serviced elsewhere."
+          },
+          {
+            "$id": "n:8",
+            "labels": [
+              {
+                "$ref": "#nl:8"
+              }
+            ],
+            "description": "An individual loan originator who takes and handles applications on behalf of the institution employing them."
+          }
+        ],
+        "relationshipObjectTypes": [
+          {
+            "$id": "r:0",
+            "type": {
+              "$ref": "#rt:0"
+            },
+            "from": {
+              "$ref": "#n:0"
+            },
+            "to": {
+              "$ref": "#n:1"
+            },
+            "description": "Records that the person is a party to the application. Every application has at least one applicant; a person may make many applications, or none."
+          },
+          {
+            "$id": "r:1",
+            "type": {
+              "$ref": "#rt:1"
+            },
+            "from": {
+              "$ref": "#n:1"
+            },
+            "to": {
+              "$ref": "#n:2"
+            },
+            "description": "Records the product the application is for. Exactly one product per application; a product may have many applications, or none. The loan an application results in is written under this product."
+          },
+          {
+            "$id": "r:2",
+            "type": {
+              "$ref": "#rt:2"
+            },
+            "from": {
+              "$ref": "#n:1"
+            },
+            "to": {
+              "$ref": "#n:8"
+            },
+            "description": "Records the loan officer who took and handled the application, and so originated any loan it results in. At most one officer per application; an officer may handle many applications, or none."
+          },
+          {
+            "$id": "r:3",
+            "type": {
+              "$ref": "#rt:3"
+            },
+            "from": {
+              "$ref": "#n:1"
+            },
+            "to": {
+              "$ref": "#n:3"
+            },
+            "description": "Links an application to the loan originated from it. Every loan results from exactly one application; an application results in at most one loan, and only when its disposition is `loan originated`."
+          },
+          {
+            "$id": "r:4",
+            "type": {
+              "$ref": "#rt:4"
+            },
+            "from": {
+              "$ref": "#n:0"
+            },
+            "to": {
+              "$ref": "#n:3"
+            },
+            "description": "Records that the person is a borrower on the loan and liable for repaying it. Every loan has at least one borrower; a person may borrow on many loans, or none. Co-borrowers are treated as jointly and severally liable, so each is exposed to the full balance."
+          },
+          {
+            "$id": "r:5",
+            "type": {
+              "$ref": "#rt:5"
+            },
+            "from": {
+              "$ref": "#n:0"
+            },
+            "to": {
+              "$ref": "#n:3"
+            },
+            "description": "Records that the person guarantees repayment of the loan if its borrowers do not pay. Taken as a guarantee of the full outstanding balance; partial or capped guarantees are not distinguished. A loan may have several guarantors, or none; a person may guarantee many loans, or none."
+          },
+          {
+            "$id": "r:6",
+            "type": {
+              "$ref": "#rt:6"
+            },
+            "from": {
+              "$ref": "#n:3"
+            },
+            "to": {
+              "$ref": "#n:7"
+            },
+            "description": "Records the institution that made the loan and holds the credit agreement. Exactly one lender per loan; an institution may lend on many loans, or none."
+          },
+          {
+            "$id": "r:7",
+            "type": {
+              "$ref": "#rt:7"
+            },
+            "from": {
+              "$ref": "#n:3"
+            },
+            "to": {
+              "$ref": "#n:7"
+            },
+            "description": "Records the institution that services the loan, collecting payments and managing delinquency on the lender's behalf. Exactly one servicer per loan, which may be the lender itself; an institution may service many loans, or none."
+          },
+          {
+            "$id": "r:8",
+            "type": {
+              "$ref": "#rt:8"
+            },
+            "from": {
+              "$ref": "#n:8"
+            },
+            "to": {
+              "$ref": "#n:7"
+            },
+            "description": "Records the institution the loan officer currently originates for. Exactly one institution per officer; an institution may employ many officers, or none. Represents current employment, not a history."
+          },
+          {
+            "$id": "r:9",
+            "type": {
+              "$ref": "#rt:9"
+            },
+            "from": {
+              "$ref": "#n:3"
+            },
+            "to": {
+              "$ref": "#n:4"
+            },
+            "description": "Records that the loan is secured by a lien on the property, in the position given by the loan's lienPosition. At most one property per loan, and none for an unsecured loan; a property may secure several loans at once, which is what makes combined loan-to-value a property-level measure."
+          },
+          {
+            "$id": "r:10",
+            "type": {
+              "$ref": "#rt:10"
+            },
+            "from": {
+              "$ref": "#n:5"
+            },
+            "to": {
+              "$ref": "#n:4"
+            },
+            "description": "Records that the appraisal established a value for the property. Exactly one property per appraisal; a property may have many appraisals over time, or none."
+          },
+          {
+            "$id": "r:11",
+            "type": {
+              "$ref": "#rt:11"
+            },
+            "from": {
+              "$ref": "#n:3"
+            },
+            "to": {
+              "$ref": "#n:6"
+            },
+            "description": "Links a loan to one of its scheduled payments, forming its payment history. Every payment belongs to exactly one loan; a loan has one payment per scheduled installment in the period covered, and none before its first due date."
+          }
+        ],
+        "constraints": [
+          {
+            "$id": "c:0",
+            "name": "personId_Person_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:0"
+            },
+            "properties": [
+              {
+                "$ref": "#p:0"
+              }
+            ]
+          },
+          {
+            "$id": "c:1",
+            "name": "applicationId_LoanApplication_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:1"
+            },
+            "properties": [
+              {
+                "$ref": "#p:2"
+              }
+            ]
+          },
+          {
+            "$id": "c:2",
+            "name": "applicationDate_LoanApplication_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:1"
+            },
+            "properties": [
+              {
+                "$ref": "#p:3"
+              }
+            ]
+          },
+          {
+            "$id": "c:3",
+            "name": "disposition_LoanApplication_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:1"
+            },
+            "properties": [
+              {
+                "$ref": "#p:10"
+              }
+            ]
+          },
+          {
+            "$id": "c:4",
+            "name": "productId_LoanProduct_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:2"
+            },
+            "properties": [
+              {
+                "$ref": "#p:13"
+              }
+            ]
+          },
+          {
+            "$id": "c:5",
+            "name": "loanId_Loan_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:3"
+            },
+            "properties": [
+              {
+                "$ref": "#p:20"
+              }
+            ]
+          },
+          {
+            "$id": "c:6",
+            "name": "principalAmount_Loan_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:3"
+            },
+            "properties": [
+              {
+                "$ref": "#p:21"
+              }
+            ]
+          },
+          {
+            "$id": "c:7",
+            "name": "originationDate_Loan_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:3"
+            },
+            "properties": [
+              {
+                "$ref": "#p:23"
+              }
+            ]
+          },
+          {
+            "$id": "c:8",
+            "name": "currentBalance_Loan_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:3"
+            },
+            "properties": [
+              {
+                "$ref": "#p:27"
+              }
+            ]
+          },
+          {
+            "$id": "c:9",
+            "name": "status_Loan_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:3"
+            },
+            "properties": [
+              {
+                "$ref": "#p:29"
+              }
+            ]
+          },
+          {
+            "$id": "c:10",
+            "name": "propertyId_Property_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:4"
+            },
+            "properties": [
+              {
+                "$ref": "#p:30"
+              }
+            ]
+          },
+          {
+            "$id": "c:11",
+            "name": "appraisalId_Appraisal_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:5"
+            },
+            "properties": [
+              {
+                "$ref": "#p:37"
+              }
+            ]
+          },
+          {
+            "$id": "c:12",
+            "name": "appraisalDate_Appraisal_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:5"
+            },
+            "properties": [
+              {
+                "$ref": "#p:38"
+              }
+            ]
+          },
+          {
+            "$id": "c:13",
+            "name": "appraisedValue_Appraisal_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:5"
+            },
+            "properties": [
+              {
+                "$ref": "#p:39"
+              }
+            ]
+          },
+          {
+            "$id": "c:14",
+            "name": "paymentId_Payment_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:6"
+            },
+            "properties": [
+              {
+                "$ref": "#p:40"
+              }
+            ]
+          },
+          {
+            "$id": "c:15",
+            "name": "dueDate_Payment_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:6"
+            },
+            "properties": [
+              {
+                "$ref": "#p:41"
+              }
+            ]
+          },
+          {
+            "$id": "c:16",
+            "name": "amountDue_Payment_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:6"
+            },
+            "properties": [
+              {
+                "$ref": "#p:42"
+              }
+            ]
+          },
+          {
+            "$id": "c:17",
+            "name": "amountPaid_Payment_propertyExistence",
+            "constraintType": "propertyExistence",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:6"
+            },
+            "properties": [
+              {
+                "$ref": "#p:43"
+              }
+            ]
+          },
+          {
+            "$id": "c:18",
+            "name": "institutionId_FinancialInstitution_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:7"
+            },
+            "properties": [
+              {
+                "$ref": "#p:46"
+              }
+            ]
+          },
+          {
+            "$id": "c:19",
+            "name": "officerId_LoanOfficer_key",
+            "constraintType": "key",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:8"
+            },
+            "properties": [
+              {
+                "$ref": "#p:49"
+              }
+            ]
+          }
+        ],
+        "indexes": []
+      }
+    },
+    "graphSchemaExtensionsRepresentation": {
+      "nodeKeyProperties": [
+        {
+          "node": {
+            "$ref": "#n:0"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:0"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:7"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:46"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:8"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:49"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:2"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:13"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:1"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:2"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:3"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:20"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:4"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:30"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:5"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:37"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:6"
+          },
+          "keyProperties": [
+            {
+              "$ref": "#p:40"
+            }
+          ]
+        }
+      ]
+    },
+    "graphMappingRepresentation": {
+      "dataSourceSchema": {
+        "type": "local",
+        "tableSchemas": [
+          {
+            "name": "persons.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "personId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "financial_institutions.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "institutionId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "lei",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "loan_officers.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "officerId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "nmlsId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "institutionId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "loan_products.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "productId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "name",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "marketCategory",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "creditType",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "amortizationType",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "termMonths",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "isSecured",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "loan_applications.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "applicationId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "productId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "officerId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "applicationDate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "requestedAmount",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "loanPurpose",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "occupancy",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "creditScore",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "monthlyIncome",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "dtiRatio",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "disposition",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "dispositionDate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "denialReason",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "applicants.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "personId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "applicationId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "applicantRole",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "loans.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "loanId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "applicationId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "lenderId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "servicerId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "propertyId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "principalAmount",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "interestRate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "originationDate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "maturityDate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "lienPosition",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "ltvAtOrigination",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "currentBalance",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "balanceAsOfDate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "status",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "borrowers.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "personId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "loanId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "borrowerRole",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "guarantees.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "personId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "loanId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "properties.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "propertyId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "address",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "city",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "state",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "postalCode",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "constructionType",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "dwellingUnits",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "appraisals.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "appraisalId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "propertyId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "appraisalDate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "appraisedValue",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          },
+          {
+            "name": "payments.csv",
+            "expanded": false,
+            "fields": [
+              {
+                "name": "paymentId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "loanId",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "dueDate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "amountDue",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "amountPaid",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "paidDate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "daysLate",
+                "sample": "",
+                "recommendedType": {
+                  "type": "string"
+                }
+              }
+            ],
+            "foreignKeys": []
+          }
+        ]
+      },
+      "nodeMappings": [
+        {
+          "node": {
+            "$ref": "#n:0"
+          },
+          "tableName": "persons.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "personId",
+              "property": {
+                "$ref": "#p:0"
+              }
+            },
+            {
+              "fieldName": "name",
+              "property": {
+                "$ref": "#p:1"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:7"
+          },
+          "tableName": "financial_institutions.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "institutionId",
+              "property": {
+                "$ref": "#p:46"
+              }
+            },
+            {
+              "fieldName": "name",
+              "property": {
+                "$ref": "#p:47"
+              }
+            },
+            {
+              "fieldName": "lei",
+              "property": {
+                "$ref": "#p:48"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:8"
+          },
+          "tableName": "loan_officers.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "officerId",
+              "property": {
+                "$ref": "#p:49"
+              }
+            },
+            {
+              "fieldName": "name",
+              "property": {
+                "$ref": "#p:50"
+              }
+            },
+            {
+              "fieldName": "nmlsId",
+              "property": {
+                "$ref": "#p:51"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:2"
+          },
+          "tableName": "loan_products.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "productId",
+              "property": {
+                "$ref": "#p:13"
+              }
+            },
+            {
+              "fieldName": "name",
+              "property": {
+                "$ref": "#p:14"
+              }
+            },
+            {
+              "fieldName": "marketCategory",
+              "property": {
+                "$ref": "#p:15"
+              }
+            },
+            {
+              "fieldName": "creditType",
+              "property": {
+                "$ref": "#p:16"
+              }
+            },
+            {
+              "fieldName": "amortizationType",
+              "property": {
+                "$ref": "#p:17"
+              }
+            },
+            {
+              "fieldName": "termMonths",
+              "property": {
+                "$ref": "#p:18"
+              }
+            },
+            {
+              "fieldName": "isSecured",
+              "property": {
+                "$ref": "#p:19"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:1"
+          },
+          "tableName": "loan_applications.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "applicationId",
+              "property": {
+                "$ref": "#p:2"
+              }
+            },
+            {
+              "fieldName": "applicationDate",
+              "property": {
+                "$ref": "#p:3"
+              }
+            },
+            {
+              "fieldName": "requestedAmount",
+              "property": {
+                "$ref": "#p:4"
+              }
+            },
+            {
+              "fieldName": "loanPurpose",
+              "property": {
+                "$ref": "#p:5"
+              }
+            },
+            {
+              "fieldName": "occupancy",
+              "property": {
+                "$ref": "#p:6"
+              }
+            },
+            {
+              "fieldName": "creditScore",
+              "property": {
+                "$ref": "#p:7"
+              }
+            },
+            {
+              "fieldName": "monthlyIncome",
+              "property": {
+                "$ref": "#p:8"
+              }
+            },
+            {
+              "fieldName": "dtiRatio",
+              "property": {
+                "$ref": "#p:9"
+              }
+            },
+            {
+              "fieldName": "disposition",
+              "property": {
+                "$ref": "#p:10"
+              }
+            },
+            {
+              "fieldName": "dispositionDate",
+              "property": {
+                "$ref": "#p:11"
+              }
+            },
+            {
+              "fieldName": "denialReason",
+              "property": {
+                "$ref": "#p:12"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:3"
+          },
+          "tableName": "loans.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "loanId",
+              "property": {
+                "$ref": "#p:20"
+              }
+            },
+            {
+              "fieldName": "principalAmount",
+              "property": {
+                "$ref": "#p:21"
+              }
+            },
+            {
+              "fieldName": "interestRate",
+              "property": {
+                "$ref": "#p:22"
+              }
+            },
+            {
+              "fieldName": "originationDate",
+              "property": {
+                "$ref": "#p:23"
+              }
+            },
+            {
+              "fieldName": "maturityDate",
+              "property": {
+                "$ref": "#p:24"
+              }
+            },
+            {
+              "fieldName": "lienPosition",
+              "property": {
+                "$ref": "#p:25"
+              }
+            },
+            {
+              "fieldName": "ltvAtOrigination",
+              "property": {
+                "$ref": "#p:26"
+              }
+            },
+            {
+              "fieldName": "currentBalance",
+              "property": {
+                "$ref": "#p:27"
+              }
+            },
+            {
+              "fieldName": "balanceAsOfDate",
+              "property": {
+                "$ref": "#p:28"
+              }
+            },
+            {
+              "fieldName": "status",
+              "property": {
+                "$ref": "#p:29"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:4"
+          },
+          "tableName": "properties.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "propertyId",
+              "property": {
+                "$ref": "#p:30"
+              }
+            },
+            {
+              "fieldName": "address",
+              "property": {
+                "$ref": "#p:31"
+              }
+            },
+            {
+              "fieldName": "city",
+              "property": {
+                "$ref": "#p:32"
+              }
+            },
+            {
+              "fieldName": "state",
+              "property": {
+                "$ref": "#p:33"
+              }
+            },
+            {
+              "fieldName": "postalCode",
+              "property": {
+                "$ref": "#p:34"
+              }
+            },
+            {
+              "fieldName": "constructionType",
+              "property": {
+                "$ref": "#p:35"
+              }
+            },
+            {
+              "fieldName": "dwellingUnits",
+              "property": {
+                "$ref": "#p:36"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:5"
+          },
+          "tableName": "appraisals.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "appraisalId",
+              "property": {
+                "$ref": "#p:37"
+              }
+            },
+            {
+              "fieldName": "appraisalDate",
+              "property": {
+                "$ref": "#p:38"
+              }
+            },
+            {
+              "fieldName": "appraisedValue",
+              "property": {
+                "$ref": "#p:39"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:6"
+          },
+          "tableName": "payments.csv",
+          "propertyMappings": [
+            {
+              "fieldName": "paymentId",
+              "property": {
+                "$ref": "#p:40"
+              }
+            },
+            {
+              "fieldName": "dueDate",
+              "property": {
+                "$ref": "#p:41"
+              }
+            },
+            {
+              "fieldName": "amountDue",
+              "property": {
+                "$ref": "#p:42"
+              }
+            },
+            {
+              "fieldName": "amountPaid",
+              "property": {
+                "$ref": "#p:43"
+              }
+            },
+            {
+              "fieldName": "paidDate",
+              "property": {
+                "$ref": "#p:44"
+              }
+            },
+            {
+              "fieldName": "daysLate",
+              "property": {
+                "$ref": "#p:45"
+              }
+            }
+          ]
+        }
+      ],
+      "relationshipMappings": [
+        {
+          "relationship": {
+            "$ref": "#r:0"
+          },
+          "tableName": "applicants.csv",
+          "fromMappings": {
+            "#p:0": "personId"
+          },
+          "toMappings": {
+            "#p:2": "applicationId"
+          },
+          "propertyMappings": [
+            {
+              "fieldName": "applicantRole",
+              "property": {
+                "$ref": "#p:52"
+              }
+            }
+          ]
+        },
+        {
+          "relationship": {
+            "$ref": "#r:1"
+          },
+          "tableName": "loan_applications.csv",
+          "fromMappings": {
+            "#p:2": "applicationId"
+          },
+          "toMappings": {
+            "#p:13": "productId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:2"
+          },
+          "tableName": "loan_applications.csv",
+          "fromMappings": {
+            "#p:2": "applicationId"
+          },
+          "toMappings": {
+            "#p:49": "officerId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:3"
+          },
+          "tableName": "loans.csv",
+          "fromMappings": {
+            "#p:2": "applicationId"
+          },
+          "toMappings": {
+            "#p:20": "loanId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:4"
+          },
+          "tableName": "borrowers.csv",
+          "fromMappings": {
+            "#p:0": "personId"
+          },
+          "toMappings": {
+            "#p:20": "loanId"
+          },
+          "propertyMappings": [
+            {
+              "fieldName": "borrowerRole",
+              "property": {
+                "$ref": "#p:53"
+              }
+            }
+          ]
+        },
+        {
+          "relationship": {
+            "$ref": "#r:5"
+          },
+          "tableName": "guarantees.csv",
+          "fromMappings": {
+            "#p:0": "personId"
+          },
+          "toMappings": {
+            "#p:20": "loanId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:6"
+          },
+          "tableName": "loans.csv",
+          "fromMappings": {
+            "#p:20": "loanId"
+          },
+          "toMappings": {
+            "#p:46": "lenderId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:7"
+          },
+          "tableName": "loans.csv",
+          "fromMappings": {
+            "#p:20": "loanId"
+          },
+          "toMappings": {
+            "#p:46": "servicerId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:8"
+          },
+          "tableName": "loan_officers.csv",
+          "fromMappings": {
+            "#p:49": "officerId"
+          },
+          "toMappings": {
+            "#p:46": "institutionId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:9"
+          },
+          "tableName": "loans.csv",
+          "fromMappings": {
+            "#p:20": "loanId"
+          },
+          "toMappings": {
+            "#p:30": "propertyId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:10"
+          },
+          "tableName": "appraisals.csv",
+          "fromMappings": {
+            "#p:37": "appraisalId"
+          },
+          "toMappings": {
+            "#p:30": "propertyId"
+          },
+          "propertyMappings": []
+        },
+        {
+          "relationship": {
+            "$ref": "#r:11"
+          },
+          "tableName": "payments.csv",
+          "fromMappings": {
+            "#p:20": "loanId"
+          },
+          "toMappings": {
+            "#p:40": "paymentId"
+          },
+          "propertyMappings": []
+        }
+      ]
+    },
+    "configurations": {
+      "idsToIgnore": []
+    }
+  }
+}

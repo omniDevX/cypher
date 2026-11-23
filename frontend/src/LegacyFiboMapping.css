@@ -1,0 +1,47 @@
+.legacy-fibo-page { width: 100%; }
+.legacy-fibo-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.legacy-fibo-heading h1 { margin: 0; font-size: 28px; }
+.legacy-fibo-heading p { margin: 4px 0 0; color: #64748b; font-size: 13px; }
+.legacy-fibo-heading > span { color: #64748b; font-size: 12px; }
+.legacy-fibo-note { margin-bottom: 12px; padding: 10px 12px; border: 1px solid #bfdbfe; border-radius: 7px; background: #eff6ff; color: #1e3a8a; font-size: 12px; }
+.legacy-fibo-error { padding: 10px; border-radius: 6px; background: #fef2f2; color: #991b1b; white-space: pre-wrap; }
+.legacy-fibo-workspace { display: grid; grid-template-columns: minmax(230px, 310px) minmax(0, 1fr); min-height: 560px; overflow: hidden; border: 1px solid #e2e8f0; border-radius: 10px; background: white; }
+.legacy-fibo-sources { display: flex; flex-direction: column; gap: 4px; max-height: calc(100vh - 300px); overflow: auto; padding: 10px; border-right: 1px solid #e2e8f0; background: #f8fafc; }
+.legacy-fibo-sources > input { margin-bottom: 6px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font: 12px var(--sans); }
+.legacy-source { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 8px; border: 0; border-radius: 6px; background: transparent; color: #1e293b; text-align: left; cursor: pointer; }
+.legacy-source:hover, .legacy-source.selected { background: #dbeafe; }
+.legacy-source strong { font-size: 11px; overflow-wrap: anywhere; }
+.legacy-source span { color: #64748b; font-size: 10px; }
+.legacy-semantic-example { display: grid; gap: 4px; margin-top: 14px; padding: 10px 12px; border-left: 3px solid #64748b; background: #f8fafc; color: #334155; font-size: 11px; }
+.legacy-semantic-example span { color: #475569; }
+.legacy-semantic-example button { justify-self: start; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 5px; background: white; color: #334155; font: 11px var(--sans); cursor: pointer; }
+.legacy-mapping-note { display: grid; gap: 4px; margin: 12px 0; padding: 10px 12px; border-left: 3px solid #d97706; background: #fffbeb; color: #78350f; font-size: 11px; }
+.legacy-source .mapping-status { color: #92400e; text-transform: capitalize; }
+.legacy-source .mapping-status.reviewed { color: #166534; }
+.legacy-fibo-editor { min-width: 0; padding: 18px; overflow: auto; }
+.legacy-source-summary { padding-bottom: 13px; border-bottom: 1px solid #e2e8f0; }
+.legacy-source-summary > span { color: #2563eb; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.legacy-source-summary h2 { margin: 4px 0 6px; color: #0f172a; font-size: 19px; }
+.legacy-source-summary p { color: #475569; font-size: 12px; }
+.legacy-source-summary small { display: block; margin-top: 5px; color: #64748b; font-size: 10px; }
+.fibo-target-fields { display: grid; gap: 11px; padding: 14px 0; }
+.fibo-target-fields label, .cde-fields > label:not(.cde-toggle) { display: grid; gap: 5px; color: #334155; font-size: 11px; font-weight: 600; }
+.fibo-target-fields input, .fibo-target-fields select, .fibo-target-fields textarea, .cde-fields textarea { width: 100%; box-sizing: border-box; padding: 8px 9px; border: 1px solid #cbd5e1; border-radius: 6px; background: white; color: #0f172a; font: 12px/1.4 var(--sans); }
+.fibo-target-fields textarea, .cde-fields textarea { resize: vertical; }
+.cde-fields { display: grid; gap: 10px; margin: 0 0 14px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 7px; }
+.cde-fields legend { padding: 0 5px; color: #334155; font-size: 11px; font-weight: 700; }
+.cde-toggle { display: flex; align-items: center; gap: 7px; color: #334155; font-size: 11px; }
+.cde-toggle input { margin: 0; }
+.mapping-editor-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid #e2e8f0; }
+.mapping-editor-actions > span { color: #64748b; font-size: 11px; text-transform: capitalize; }
+.mapping-editor-actions > div { display: flex; flex-wrap: wrap; gap: 6px; }
+.mapping-editor-actions button { padding: 7px 10px; border: 0; border-radius: 6px; background: #e2e8f0; color: #334155; font: 11px var(--sans); cursor: pointer; }
+.mapping-editor-actions button.mapping-save { background: #2563eb; color: white; }
+.mapping-editor-actions button.mapping-delete { background: #fee2e2; color: #991b1b; }
+.mapping-editor-actions button:disabled { opacity: .55; cursor: not-allowed; }
+
+@media (max-width: 750px) {
+  .legacy-fibo-heading { align-items: flex-start; flex-direction: column; }
+  .legacy-fibo-workspace { grid-template-columns: 1fr; }
+  .legacy-fibo-sources { max-height: 240px; border-right: 0; border-bottom: 1px solid #e2e8f0; }
+}

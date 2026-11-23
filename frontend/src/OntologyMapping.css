@@ -1,0 +1,37 @@
+.ontology-mapping-page { width: 100%; }
+.mapping-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.mapping-heading h1 { margin: 0; font-size: 28px; }
+.mapping-heading p { margin: 3px 0 0; color: #64748b; font-size: 13px; }
+.mapping-kind-toggle { display: flex; gap: 4px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; }
+.mapping-kind-toggle button { padding: 7px 12px; border: 0; border-radius: 6px; background: transparent; color: #475569; font: 12px var(--sans); cursor: pointer; }
+.mapping-kind-toggle button.selected { background: #dbeafe; color: #1d4ed8; font-weight: 600; }
+.mapping-note { margin-bottom: 14px; padding: 10px 12px; border: 1px solid #fde68a; border-radius: 7px; background: #fffbeb; color: #78350f; font-size: 12px; }
+.mapping-error { color: #991b1b; background: #fef2f2; white-space: pre-wrap; }
+.mapping-workspace { display: grid; grid-template-columns: minmax(210px, 270px) minmax(0, 1fr); min-height: 500px; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; background: white; }
+.mapping-index { display: flex; flex-direction: column; gap: 4px; padding: 10px; border-right: 1px solid #e2e8f0; background: #f8fafc; overflow: auto; }
+.mapping-index input { margin-bottom: 6px; padding: 8px 9px; border: 1px solid #cbd5e1; border-radius: 6px; font: 12px var(--sans); }
+.mapping-index-item { display: flex; flex-direction: column; gap: 3px; padding: 9px; border: 0; border-radius: 6px; background: transparent; color: #1e293b; text-align: left; cursor: pointer; }
+.mapping-index-item:hover, .mapping-index-item.selected { background: #dbeafe; }
+.mapping-index-item strong { font-size: 12px; }
+.mapping-index-item span { color: #64748b; font-size: 10px; overflow-wrap: anywhere; }
+.mapping-detail { min-width: 0; padding: 18px; overflow: auto; }
+.mapping-kind-label { color: #2563eb; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+.mapping-detail-heading h2 { margin: 2px 0 6px; color: #0f172a; font-size: 21px; }
+.mapping-detail-heading p { max-width: 900px; color: #475569; font-size: 12px; }
+.mapping-metadata { display: flex; flex-wrap: wrap; gap: 20px; margin: 18px 0; padding: 12px; border-radius: 7px; background: #f8fafc; }
+.mapping-metadata div { min-width: 120px; }
+.mapping-metadata dt { color: #64748b; font-size: 10px; text-transform: uppercase; }
+.mapping-metadata dd { margin: 3px 0 0; color: #0f172a; font-size: 12px; }
+.mapping-detail h3 { margin: 14px 0 8px; color: #0f172a; font-size: 13px; }
+.mapping-property-list { display: flex; flex-direction: column; gap: 7px; }
+.mapping-property { padding: 9px 10px; border: 1px solid #e2e8f0; border-radius: 7px; }
+.mapping-property-path { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.mapping-property-path code { padding: 3px 6px; border-radius: 4px; background: #f1f5f9; color: #0f172a; font-size: 11px; }
+.mapping-property-path span { color: #64748b; }
+.mapping-property p { margin: 5px 0 0; color: #64748b; font-size: 11px; }
+
+@media (max-width: 700px) {
+  .mapping-heading { align-items: flex-start; flex-direction: column; }
+  .mapping-workspace { grid-template-columns: 1fr; }
+  .mapping-index { max-height: 220px; border-right: 0; border-bottom: 1px solid #e2e8f0; }
+}

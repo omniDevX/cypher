@@ -1,0 +1,55 @@
+.sql-lineage-owl { width: 100%; color: #0f172a; }
+.sql-lineage-owl-heading { display: grid; grid-template-columns: minmax(180px, 250px) minmax(0, 1fr) auto; align-items: center; gap: 12px; margin-bottom: 16px; }
+.sql-lineage-owl-heading h1 { margin: 0; font-size: 28px; }
+.sql-lineage-owl-heading p { margin: 5px 0 0; color: #64748b; font-size: 13px; }
+.sql-lineage-owl-input { box-sizing: border-box; width: 100%; min-height: 76px; padding: 9px 10px; border: 1px solid #cbd5e1; border-radius: 6px; color: #1e293b; font: 11px/1.45 ui-monospace, Consolas, monospace; resize: vertical; }
+.sql-lineage-owl-run { min-height: 38px; padding: 0 14px; border: 0; border-radius: 6px; background: #2563eb; color: white; font: 600 11px var(--sans); cursor: pointer; }
+.sql-lineage-owl-run:disabled { opacity: .6; cursor: not-allowed; }
+.sql-lineage-owl-workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 320px); min-height: 570px; overflow: hidden; border: 1px solid #e2e8f0; border-radius: 9px; background: white; }
+.sql-lineage-owl-results { min-width: 0; padding: 16px; overflow: auto; }
+.sql-lineage-owl-empty { padding: 28px; border: 1px dashed #94a3b8; border-radius: 8px; background: #fcfdff; }
+.sql-lineage-owl-empty h2 { margin: 0 0 8px; font-size: 17px; }
+.sql-lineage-owl-empty p, .sql-lineage-owl-section > p { color: #64748b; font-size: 11px; line-height: 1.5; }
+.sql-lineage-owl-query-heading { padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; }
+.sql-lineage-owl-query-heading > span { color: #64748b; font-size: 10px; }
+.sql-lineage-owl-query-heading h2 { margin: 4px 0; font: 600 18px ui-monospace, Consolas, monospace; }
+.sql-lineage-owl-query-heading p { margin: 0; color: #64748b; font-size: 11px; }
+.sql-lineage-owl-section { display: grid; gap: 8px; margin-top: 15px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 7px; background: #fff; }
+.sql-lineage-owl-section h3 { margin: 0; font-size: 12px; }
+.sql-lineage-owl-output-list { display: flex; flex-direction: column; }
+.sql-lineage-owl-output { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border: 0; border-bottom: 1px solid #f1f5f9; background: white; text-align: left; cursor: pointer; }
+.sql-lineage-owl-output:hover, .sql-lineage-owl-output.selected { background: #eff6ff; }
+.sql-lineage-owl-output > span:first-child { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.sql-lineage-owl-output strong { font: 11px ui-monospace, Consolas, monospace; overflow-wrap: anywhere; }
+.sql-lineage-owl-output small { color: #64748b; font: 10px ui-monospace, Consolas, monospace; }
+.sql-lineage-owl-tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+.sql-lineage-owl-tags b, .sql-lineage-owl-tags em { padding: 2px 4px; border-radius: 3px; background: #ecfdf5; color: #166534; font: 9px var(--sans); }
+.sql-lineage-owl-tags em { background: #fef3c7; color: #92400e; font-style: normal; }
+.sql-lineage-owl-expression, .sql-lineage-owl-clause code { color: #1e293b; font: 11px/1.5 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; white-space: pre-wrap; }
+.sql-lineage-owl-section > p, .sql-lineage-owl-clause span { margin: 0; color: #64748b; font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+.sql-lineage-owl-mapping { color: #166534 !important; }
+.sql-lineage-owl-cde { padding: 9px; border: 1px solid #fcd34d; border-radius: 6px; background: #fffbeb; font-size: 10px; }
+.sql-lineage-owl-cde strong { color: #92400e; }
+.sql-lineage-owl-cde p { margin: 5px 0 0; color: #475569; }
+.sql-lineage-owl-clause { display: grid; gap: 5px; padding-top: 8px; border-top: 1px solid #e2e8f0; }
+.sql-lineage-owl-clause > strong { color: #475569; font-size: 9px; text-transform: uppercase; }
+.sql-lineage-owl-sql { margin-top: 14px; color: #334155; font-size: 10px; }
+.sql-lineage-owl-sql summary { cursor: pointer; }
+.sql-lineage-owl-sql pre { max-height: 280px; overflow: auto; padding: 8px; border-radius: 5px; background: #f1f5f9; font: 9px/1.45 ui-monospace, Consolas, monospace; white-space: pre-wrap; }
+.sql-lineage-owl-saved { display: flex; flex-direction: column; gap: 9px; min-width: 0; padding: 12px; overflow: auto; border-left: 1px solid #e2e8f0; background: #f8fafc; }
+.sql-lineage-owl-saved h2 { margin: 3px 4px; color: #475569; font-size: 11px; text-transform: uppercase; }
+.sql-lineage-owl-list { display: flex; flex-direction: column; gap: 3px; margin-top: 4px; }
+.sql-lineage-owl-list > p { color: #64748b; font-size: 10px; }
+.sql-lineage-owl-saved-query { display: grid; gap: 4px; padding: 8px; border: 0; border-radius: 5px; background: transparent; color: #1e293b; text-align: left; cursor: pointer; }
+.sql-lineage-owl-saved-query:hover, .sql-lineage-owl-saved-query.selected { background: #dbeafe; }
+.sql-lineage-owl-saved-query:disabled { cursor: wait; opacity: .6; }
+.sql-lineage-owl-saved-query strong { font: 600 11px var(--sans); }
+.sql-lineage-owl-saved-query span { display: -webkit-box; overflow: hidden; color: #64748b; font: 9px/1.4 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+
+@media (max-width: 760px) {
+  .sql-lineage-owl-heading { grid-template-columns: minmax(0, 1fr) auto; }
+  .sql-lineage-owl-heading > div { grid-column: 1 / -1; }
+  .sql-lineage-owl-workspace { grid-template-columns: 1fr; }
+  .sql-lineage-owl-saved { grid-row: 1; border-right: 0; border-bottom: 1px solid #e2e8f0; border-left: 0; }
+  .sql-lineage-owl-list { max-height: 200px; overflow: auto; }
+}
