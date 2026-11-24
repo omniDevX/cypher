@@ -136,7 +136,7 @@ function App() {
                 <div className="brand-block">
                     <strong className="brand">Knowledge Graph</strong>
                     <span className="brand-version" title="Application version and deployment commit">
-                        v{__APP_VERSION__}{__DEPLOYMENT_ID__ ? ` · build ${__DEPLOYMENT_ID__}` : ''}
+                        v112301
                     </span>
                 </div>
                 <textarea
