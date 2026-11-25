@@ -4,23 +4,12 @@ import OntologyMapping from './OntologyMapping'
 import LegacyFiboMapping from './LegacyFiboMapping'
 import SqlLineage from './SqlLineage'
 import SqlLineageOwl from './SqlLineageOwl'
-import './App.css'
-
-type SavedQuery = {
-    id: number
-    name: string
-    cypher: string
-    created_at: string
-}
-
+import { loadBorrowerProfile, loadSavedQueries, type SavedQuery } from './components/loading'
+import './css/App.css'
 
 type BorrowerOption = {
     borrowerId: string
     borrowerName: string
-}
-
-type BorrowerProfileResponse = {
-    borrower: BorrowerProfileData
 }
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ''
@@ -31,23 +20,23 @@ function App() {
     const [queryName, setQueryName] = useState('')
     const [result, setResult] = useState<unknown>(null)
     const [savedQueries, setSavedQueries] = useState<SavedQuery[]>([])
+    const [savedQueriesLoading, setSavedQueriesLoading] = useState(true)
     const [borrowers, setBorrowers] = useState<BorrowerOption[]>([])
+    const [borrowersLoading, setBorrowersLoading] = useState(true)
     const [selectedBorrowerId, setSelectedBorrowerId] = useState('')
     const [borrowerProfile, setBorrowerProfile] = useState<BorrowerProfileData | null>(null)
+    const [borrowerProfileLoading, setBorrowerProfileLoading] = useState(false)
     const [error, setError] = useState('')
     const [running, setRunning] = useState(false)
     const [activePage, setActivePage] = useState<'explore' | 'mapping' | 'legacy-fibo' | 'sql-lineage' | 'sql-lineage-owl'>('explore')
 
-    async function loadSavedQueries() {
-        const response = await fetch(`${API_BASE}/neo4j/saved-queries`)
-        if (!response.ok) throw new Error(await response.text())
-        setSavedQueries(await response.json() as SavedQuery[])
-    }
-
     useEffect(() => {
-        loadSavedQueries().catch((cause: unknown) => {
-            setError(cause instanceof Error ? cause.message : String(cause))
-        })
+        loadSavedQueries()
+            .then(setSavedQueries)
+            .catch((cause: unknown) => {
+                setError(cause instanceof Error ? cause.message : String(cause))
+            })
+            .finally(() => setSavedQueriesLoading(false))
 
         fetch(`${API_BASE}/loan/borrowers`)
             .then(async (response) => {
@@ -57,26 +46,9 @@ function App() {
             .catch((cause: unknown) => {
                 setError(cause instanceof Error ? cause.message : String(cause))
             })
+            .finally(() => setBorrowersLoading(false))
     }, [])
 
-    async function loadBorrowerProfile(borrowerId: string) {
-        setSelectedBorrowerId(borrowerId)
-        setBorrowerProfile(null)
-        setError('')
-        if (!borrowerId) return
-
-        try {
-            const response = await fetch(
-                `${API_BASE}/loan/borrowers/${encodeURIComponent(borrowerId)}`,
-            )
-            if (!response.ok) throw new Error(await response.text())
-
-            const rows = await response.json() as BorrowerProfileResponse[]
-            setBorrowerProfile(rows[0]?.borrower ?? null)
-        } catch (cause) {
-            setError(cause instanceof Error ? cause.message : String(cause))
-        }
-    }
 
     async function runQuery(cypher = query) {
         if (!cypher.trim()) return
@@ -117,9 +89,12 @@ function App() {
             })
             if (!response.ok) throw new Error(await response.text())
             setQueryName('')
-            await loadSavedQueries()
+            setSavedQueriesLoading(true)
+            setSavedQueries(await loadSavedQueries())
         } catch (cause) {
             setError(cause instanceof Error ? cause.message : String(cause))
+        } finally {
+            setSavedQueriesLoading(false)
         }
     }
 
@@ -201,9 +176,19 @@ function App() {
                             Borrower
                             <select
                                 value={selectedBorrowerId}
-                                onChange={(event) => void loadBorrowerProfile(event.target.value)}
+                                onChange={(event) => {
+                                    const borrowerId = event.target.value
+                                    setBorrowerProfileLoading(Boolean(borrowerId))
+                                    void loadBorrowerProfile(borrowerId, {
+                                        onBorrowerChange: setSelectedBorrowerId,
+                                        onProfileChange: setBorrowerProfile,
+                                        onError: setError,
+                                    }).finally(() => setBorrowerProfileLoading(false))
+                                }}
                             >
-                                <option value="">Choose a borrower</option>
+                                <option value="" disabled={borrowersLoading}>
+                                    {borrowersLoading ? 'Loading borrowers…' : 'Choose a borrower'}
+                                </option>
                                 {borrowers.map((borrower) => (
                                     <option key={borrower.borrowerId} value={borrower.borrowerId}>
                                         {borrower.borrowerName} ({borrower.borrowerId})
@@ -211,12 +196,23 @@ function App() {
                                 ))}
                             </select>
                         </label>
+                        {borrowersLoading && (
+                            <span className="loading-indicator" role="status">
+                                <span className="loading-spinner" aria-hidden="true" />
+                                Loading borrowers
+                            </span>
+                        )}
                     </div>
                     {error && <pre className="error-output">{error}</pre>}
                     <div className="panes">
                         <section className="pane result-pane">
                             <h2>Cypher result</h2>
-                            {borrowerProfile ? <BorrowerProfile profile={borrowerProfile} /> : null}
+                            {borrowerProfileLoading ? (
+                                <div className="loading-indicator" role="status">
+                                    <span className="loading-spinner" aria-hidden="true" />
+                                    Loading borrower profile
+                                </div>
+                            ) : borrowerProfile ? <BorrowerProfile profile={borrowerProfile} /> : null}
                             <pre className="result-output">
                                 {result !== null
                                     ? JSON.stringify(result, null, 2)
@@ -242,7 +238,12 @@ function App() {
                                 </button>
                             </div>
                             <div className="saved-query-list">
-                                {savedQueries.map((saved) => (
+                                {savedQueriesLoading ? (
+                                    <div className="loading-indicator" role="status">
+                                        <span className="loading-spinner" aria-hidden="true" />
+                                        Loading saved queries
+                                    </div>
+                                ) : savedQueries.map((saved) => (
                                     <button
                                         className="saved-query-name"
                                         key={saved.id}

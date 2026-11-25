@@ -4,7 +4,7 @@ import logging
 
 from neo4j import GraphDatabase
 
-from config.config import NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER
+from app.config import NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER
 from .schema import UNIQUE_CONSTRAINTS
 
 logger = logging.getLogger(__name__)

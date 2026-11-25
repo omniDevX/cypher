@@ -4,7 +4,7 @@ import logging
 from typing import Dict, List, Any
 from neo4j import GraphDatabase
 from sqlalchemy import create_engine, text
-from config.config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
+from app.config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
 
 class DirectNeo4jOntologyBuilder:
     """直接使用Neo4j语法构建本体知识图谱"""

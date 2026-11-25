@@ -1,45 +1,32 @@
 from __future__ import annotations
 
-import logging
 import json
-import os
 from pathlib import Path
 from typing import Any
 
+from app.schemas import sch_home 
+
+import logging
+logger   = logging.getLogger("app.http")
+
 from fastapi import APIRouter
-from pydantic import BaseModel, Field
-from sqlalchemy import create_engine, text
+loanRou  = APIRouter()
 
-from config.fibo_connector import FiboConnector
+from app.db.conn.conn_fibo_graph import FiboGraphConnector
+fiboConn = FiboGraphConnector()
+
 from app.config import get_settings_singleton
-
-loanRou = APIRouter()
-neo4jconn = FiboConnector()
-logger = logging.getLogger("app.http")
 settings = get_settings_singleton()
-pg_url = os.getenv("PG_URL") or os.getenv("DATABASE_URL") or settings.TOO_SB_DB
-if pg_url.startswith("postgresql+asyncpg://"):
-    pg_url = pg_url.replace("postgresql+asyncpg://", "postgresql+psycopg2://", 1)
-pg_engine = create_engine(pg_url, pool_pre_ping=True)
-
-class CypherRequest(BaseModel):
-    cypher: str
-    parameters: dict[str, Any] = Field(default_factory=dict)
 
 
-class SavedQueryRequest(BaseModel):
-    name: str
-    cypher: str
-
-
-@loanRou.get("/borrowers")
+@loanRou.get("/loan/borrowers")
 def list_borrowers():
     cypher="""
         MATCH (p:Person) - [:BORROWER_ON]->(:Loan)
         RETURN DISTINCT p.personId AS borrowerId, p.name AS borrowerName
         ORDER BY borrowerName        
     """
-    return neo4jconn.run(cypher)    
+    return fiboConn.run(cypher)    
 
 @loanRou.get("/borrowers/{borrower_id}")
 def borrower_360(borrower_id: str):
@@ -64,7 +51,7 @@ def borrower_360(borrower_id: str):
             loans: loans
         } AS borrower
     """
-    return neo4jconn.run(cypher, {"borrower_id": borrower_id})
+    return fiboConn.run(cypher, {"borrower_id": borrower_id})
 
 
 @loanRou.get("/ontology-mappings")
@@ -181,7 +168,7 @@ def node_connections(label: str, id_property: str, node_id: str):
                } AS node
         ORDER BY relationshipType, node.id
     """
-    rows = neo4jconn.run(cypher, {
+    rows = fiboConn.run(cypher, {
         "label": label,
         "id_property": id_property,
         "node_id": node_id,

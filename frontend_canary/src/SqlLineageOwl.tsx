@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import './SqlLineageOwl.css'
+import './css/SqlLineageOwl.css'
 
 type SavedSqlQuery = {
     id: number

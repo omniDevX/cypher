@@ -1,10 +1,13 @@
 from neo4j import GraphDatabase
-from config.config import NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER
 from typing import Any
 
-class FiboConnector:
+from app.config import get_settings_singleton
+
+
+class FiboGraphConnector:
     def __init__(self):
-        self.driver = GraphDatabase.driver(NEO4J_URI,auth=(NEO4J_USER, NEO4J_PASSWORD))
+        settings = get_settings_singleton()
+        self.driver = GraphDatabase.driver(settings.NEO4J_URI, auth=(settings.NEO4J_USER, settings.NEO4J_PASSWORD))
 
     def run(self, cypher: str, parameters: dict|None=None)->list[dict]:
         with self.driver.session() as session:

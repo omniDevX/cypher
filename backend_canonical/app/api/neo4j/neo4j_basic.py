@@ -8,7 +8,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel, Field
 from sqlalchemy import create_engine, text
 
-from config.fibo_connector import FiboConnector
+from app.config.fibo_connector import FiboConnector
 from app.config import get_settings_singleton
 
 neo4jRou = APIRouter()

@@ -1,7 +1,7 @@
 """Ontology知识图谱查询引擎 - 基于直接Neo4j实现"""
 import logging
 from typing import List, Dict, Any, Optional, Union
-from config.neo4j_connector import Neo4jConnector
+from app.config.neo4j_connector import Neo4jConnector
 from .ontology_models import RelationType, ConceptType
 
 class OntologyQueryEngine:

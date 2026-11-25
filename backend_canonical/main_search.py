@@ -4,8 +4,8 @@ import sys
 from typing import Optional
 from neo4j import GraphDatabase
 
-from config.config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
-from config.neo4j_connector import Neo4jConnector
+from app.config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
+from app.config.neo4j_connector import Neo4jConnector
 from ontology.ontology_query_engine import OntologyQueryEngine
 from ontology.ontology_models import ConceptType, RelationType, DataSourceType
 

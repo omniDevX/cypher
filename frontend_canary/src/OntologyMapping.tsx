@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import './OntologyMapping.css'
+import './css/OntologyMapping.css'
 
 type PropertyMapping = {
     sourceField: string

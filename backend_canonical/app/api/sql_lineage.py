@@ -11,7 +11,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from sqlalchemy import create_engine, text
 
-from .neo4j.api_loan import neo4jconn
+from .neo4j.api_loan import fiboConn
 from app.sql_lineage_parser import PROJECT_ROOT, load_sql_lineage, parse_sql_lineage
 
 sqlLineageRouter = APIRouter(prefix="/sql-lineage", tags=["SQL Lineage"])
@@ -156,15 +156,15 @@ def _interactive_mapping_rows(sql: str) -> list[dict[str, Any]]:
 
 
 def _ensure_graph_constraints() -> None:
-    neo4jconn.run(
+    fiboConn.run(
         "CREATE CONSTRAINT legacy_sql_source_key IF NOT EXISTS "
         "FOR (source:LegacySqlSource) REQUIRE source.sourceKey IS UNIQUE"
     )
-    neo4jconn.run(
+    fiboConn.run(
         "CREATE CONSTRAINT legacy_sql_element_key IF NOT EXISTS "
         "FOR (element:LegacySqlElement) REQUIRE (element.sourceKey, element.sourceRef) IS UNIQUE"
     )
-    neo4jconn.run(
+    fiboConn.run(
         "CREATE CONSTRAINT ontology_term_key IF NOT EXISTS "
         "FOR (term:OntologyTerm) REQUIRE term.termKey IS UNIQUE"
     )
@@ -400,7 +400,7 @@ def _sync_to_graph(
     ))
 
     _ensure_graph_constraints()
-    neo4jconn.run_transaction(statements)
+    fiboConn.run_transaction(statements)
     return {
         "sourceFile": f"fibo/sql/{file_name}", "sourceHash": source_hash,
         "queries": len(queries), "outputColumns": sum(len(query["outputs"]) for query in queries),
@@ -486,7 +486,7 @@ def build_saved_sql_lineage(query_id: int):
 
 
 def _get_sql_lineage(source_key: str) -> dict[str, Any]:
-    source_rows = neo4jconn.run(
+    source_rows = fiboConn.run(
         "MATCH (source:LegacySqlSource {sourceKey:$sourceKey,active:true}) "
         "RETURN properties(source) AS source",
         {"sourceKey": source_key},
@@ -494,7 +494,7 @@ def _get_sql_lineage(source_key: str) -> dict[str, Any]:
     if not source_rows:
         return {"synced": False, "sourceFile": "fibo/sql/sql.sql", "queries": []}
     source = source_rows[0]["source"]
-    query_rows = neo4jconn.run(
+    query_rows = fiboConn.run(
         "MATCH (source:LegacySqlSource {sourceKey:$sourceKey})-[:HAS_QUERY]->(query:LegacySqlElement {active:true}) "
         "OPTIONAL MATCH (query)-[mapping:MAPS_TO|PROPOSES_MAPPING_TO]->(term:OntologyTerm) "
         "RETURN properties(query) AS query, "
@@ -507,7 +507,7 @@ def _get_sql_lineage(source_key: str) -> dict[str, Any]:
     for query_row in query_rows:
         query = query_row["query"]
         query["mappings"] = [item for item in query_row["mappings"] if item]
-        output_rows = neo4jconn.run(
+        output_rows = fiboConn.run(
             "MATCH (query:LegacySqlElement {sourceKey:$sourceKey,queryId:$queryId,active:true})-[:RETURNS]->"
             "(output:LegacySqlElement {active:true}) "
             "OPTIONAL MATCH (output)-[:DERIVES_FROM]->(input:LegacySqlElement {active:true}) "
@@ -520,7 +520,7 @@ def _get_sql_lineage(source_key: str) -> dict[str, Any]:
             {"sourceKey": source_key, "queryId": query["queryId"]},
         )
         query["outputs"] = []
-        clause_rows = neo4jconn.run(
+        clause_rows = fiboConn.run(
             "MATCH (query:LegacySqlElement {sourceKey:$sourceKey,queryId:$queryId,active:true})-[:HAS_CLAUSE]->"
             "(clause:LegacySqlElement {active:true}) "
             "OPTIONAL MATCH (clause)-[:REFERENCES_COLUMN]->(input:LegacySqlElement {active:true}) "

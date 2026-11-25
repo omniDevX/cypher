@@ -99,6 +99,9 @@ button:disabled { cursor: not-allowed; opacity: .55; }
 .save-query-form input { flex: 1; min-width: 0; box-sizing: border-box; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font: 12px/1.3 var(--sans); }
 .save-query-form button { min-height: 30px; padding: 0 10px; border-radius: 6px; font-size: 12px; }
 .saved-query-list { display: flex; flex-direction: column; }
+.loading-indicator { display: inline-flex; align-items: center; gap: 8px; color: #64748b; font-size: 12px; }
+.loading-spinner { width: 14px; height: 14px; flex: 0 0 14px; box-sizing: border-box; border: 2px solid #cbd5e1; border-top-color: #2563eb; border-radius: 50%; animation: loading-spin 0.7s linear infinite; }
+@keyframes loading-spin { to { transform: rotate(360deg); } }
 .saved-query-name { width: 100%; padding: 8px 6px; border: 0; border-bottom: 1px solid #e2e8f0; background: transparent; color: #1d4ed8; text-align: left; font: 12px/1.35 var(--sans); cursor: pointer; }
 .saved-query-name:hover { background: #eff6ff; }
 .borrower-profile { margin: 12px 0; }

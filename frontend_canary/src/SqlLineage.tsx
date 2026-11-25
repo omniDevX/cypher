@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import './SqlLineage.css'
+import './css/SqlLineage.css'
 
 type GraphTerm = {
     termKey: string

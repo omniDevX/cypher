@@ -2,7 +2,7 @@
 from neo4j import GraphDatabase
 import logging
 from typing import List, Dict, Any, Optional
-from .config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
+from ...config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
 from ontology.ontology_models import OntologyConcept, OntologyClass, OntologyInstance, SemanticRelation
 
 class Neo4jConnector:

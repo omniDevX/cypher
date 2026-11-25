@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import './LegacyFiboMapping.css'
+import './css/LegacyFiboMapping.css'
 
 type SourceCatalog = {
     sourceSystem: string
