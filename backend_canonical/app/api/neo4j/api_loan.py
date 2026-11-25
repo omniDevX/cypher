@@ -4,8 +4,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from app.schemas import sch_home 
-
 import logging
 logger   = logging.getLogger("app.http")
 
@@ -28,7 +26,7 @@ def list_borrowers():
     """
     return fiboConn.run(cypher)    
 
-@loanRou.get("/borrowers/{borrower_id}")
+@loanRou.get("/loan/borrowers/{borrower_id}")
 def borrower_360(borrower_id: str):
     cypher = """
         MATCH (person:Person {personId: $borrower_id})
@@ -54,7 +52,7 @@ def borrower_360(borrower_id: str):
     return fiboConn.run(cypher, {"borrower_id": borrower_id})
 
 
-@loanRou.get("/ontology-mappings")
+@loanRou.get("/loan/ontology-mappings")
 def ontology_mappings():
     model_path = Path(__file__).resolve().parents[3] / "fibo" / "loan" / "neo4j_importer_model.json"
     model = json.loads(model_path.read_text(encoding="utf-8"))
